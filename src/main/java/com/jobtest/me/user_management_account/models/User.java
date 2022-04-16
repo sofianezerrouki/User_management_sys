@@ -60,7 +60,7 @@ public class User implements UserDetails {
     private Set<? extends GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities) {
         Set<GrantedAuthority> myAuthorities = new HashSet<>();
         for (Authority authority : authorities) {
-            myAuthorities.add(new SimpleGrantedAuthority(authority.getRole()));
+            myAuthorities.add(new SimpleGrantedAuthority(authority.getRoleName()));
         }
         return myAuthorities;
     }

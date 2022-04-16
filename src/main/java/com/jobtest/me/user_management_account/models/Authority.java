@@ -1,6 +1,7 @@
 package com.jobtest.me.user_management_account.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,11 +17,12 @@ public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String role;
+    private String roleName;
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
     public Authority(String role) {
-        this.role = role;
+        this.roleName = role;
     }
 }
