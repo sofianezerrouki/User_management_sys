@@ -22,8 +22,8 @@ public class UserController {
         return  "Hello job test :) ";
     }
 
-    @PostMapping
-    public User register(@RequestBody User user){
+    @PostMapping("signUp")
+    public User signUp(@RequestBody User user){
         return userService.saveUser(user);
     }
     @PutMapping

@@ -26,7 +26,7 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/register")
+                .antMatchers("/api/v1/users/signUp")
                 .permitAll()
                 .and()
                 .authorizeRequests()

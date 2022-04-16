@@ -11,7 +11,9 @@ import com.jobtest.me.user_management_account.repo.RoleRepository;
 import com.jobtest.me.user_management_account.repo.UserRepository;
 import com.jobtest.me.user_management_account.services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,6 +23,9 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public User saveUser(User user) throws RuntimeException{
         //check if user name exist
@@ -33,6 +38,7 @@ public class UserServiceImpl implements UserService {
             throw new EmailExistException("Email already exist: "+ user.getEmail());
         }
         saveOrUpdatepdateUserRoles(user, Arrays.asList(Role.ROLE_NEW.name()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
