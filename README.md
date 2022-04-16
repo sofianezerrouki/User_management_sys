@@ -63,11 +63,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [H2 database](https://www.h2database.com/html/main.html)
 * [Lombok](https://projectlombok.org/)
 
-<img src="images/maven.jpg" alt="Logo" width="80" height="80">
-<img src="images/spring.jpg" alt="Logo" width="80" height="80">
-<img src="images/security.jpg" alt="Logo" width="80" height="80">
-<img src="images/h2.jpg" alt="Logo" width="80" height="80">
-<img src="images/lombok.jpg" alt="Logo" width="80" height="80">
+<img src="images/maven.jpeg" alt="Logo" width="80" height="80">
+<img src="images/spring.png" alt="Logo" width="80" height="80">
+<img src="images/security.png" alt="Logo" width="80" height="80">
+<img src="images/h2.png" alt="Logo" width="80" height="80">
+<img src="images/lombok.jfif" alt="Logo" width="80" height="80">
 <br>
 <p align="right">(<a href="#top">back to top</a>)</p>
 
