@@ -34,7 +34,7 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
                 .authenticated()
-                .and().formLogin();
+                .and().httpBasic();
 
     }
 
@@ -50,5 +50,4 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(jobUserDetailService);
         return provider;
     }
-
 }
