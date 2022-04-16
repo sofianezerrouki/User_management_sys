@@ -124,7 +124,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contact
 
-ZERROUKI Sofiane - [LinkedIn](https://www.linkedin.com/in/zerroukisofiane/) 
+ZERROUKI Sofiane - [linkedin.com/in/zerroukisofiane](https://www.linkedin.com/in/zerroukisofiane/) 
 
 Project Link: [https://github.com/sofianezerrouki/User_management_sys](https://github.com/sofianezerrouki/User_management_sys)
 
