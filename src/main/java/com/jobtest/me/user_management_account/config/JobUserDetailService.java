@@ -15,11 +15,11 @@ import javax.transaction.Transactional;
 @AllArgsConstructor
 public class JobUserDetailService implements UserDetailsService {
     private UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         User user = userRepository.findByUsername(username);
-        if (user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("user not found !");
         }
         return new org.springframework.security.core.userdetails.User(

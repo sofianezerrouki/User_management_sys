@@ -1,7 +1,7 @@
 package com.jobtest.me.user_management_account.services.impl;
 
 import com.jobtest.me.user_management_account.dto.UserDto;
-import com.jobtest.me.user_management_account.exceptions.EmailExistException;
+import com.jobtest.me.user_management_account.dto.UserResponse;
 import com.jobtest.me.user_management_account.exceptions.UserNotFoundException;
 import com.jobtest.me.user_management_account.exceptions.UsernameExistException;
 import com.jobtest.me.user_management_account.models.Authority;
@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -27,29 +28,32 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User saveUser(User user) throws RuntimeException{
+    @Override
+    public UserResponse saveUser(UserDto userDto) throws UsernameExistException {
         //check if user name exist
-        User myUser = userRepository.findByUsername(user.getUsername());
-        if (myUser!=null){
-            throw new UsernameExistException("Username already exist: "+ user.getUsername());
+        User myUser = userRepository.findByUsername(userDto.getUsername());
+        if (myUser != null) {
+            throw new UsernameExistException("Username already exist: " + userDto.getUsername());
         }
-        //chek if email exist
-        if (myUser!=null){
-            throw new EmailExistException("Email already exist: "+ user.getEmail());
-        }
-        saveOrUpdatepdateUserRoles(user, Arrays.asList(Role.ROLE_NEW.name()));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        myUser = new User();
+        myUser.setUsername(userDto.getUsername());
+        myUser.setPassword(userDto.getPassword());
+        myUser.setEmail(userDto.getEmail());
+        myUser.setPassword(passwordEncoder.encode(myUser.getPassword()));
+
+        saveOrUpdatepdateUserRoles(myUser, Arrays.asList(Role.ROLE_NEW.name()));
+        User savedUser = userRepository.save(myUser);
+        return new UserResponse(savedUser);
     }
 
     private void saveOrUpdatepdateUserRoles(User user, List<String> roles) {
         Set<Authority> authorities = new HashSet<>();
-        for(String roleString:roles){
+        for (String roleString : roles) {
             //if Role exist we shouldn't resave again
             Authority myAuthority = roleRepository.findByRoleName(roleString);
-            if (myAuthority != null){
+            if (myAuthority != null) {
                 authorities.add(myAuthority);
-            }else {
+            } else {
                 myAuthority = new Authority(roleString);
                 roleRepository.save(myAuthority);
                 authorities.add(myAuthority);
@@ -59,9 +63,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UserDto userDto) {
+    public UserResponse updateUser(UserDto userDto) {
         Optional<User> myUser = userRepository.findById(userDto.getId());
-        if (myUser.isEmpty()){
+        if (myUser.isEmpty()) {
             throw new UserNotFoundException("User not found!");
         }
         User user = myUser.get();
@@ -69,23 +73,30 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
 
-        saveOrUpdatepdateUserRoles(user,userDto.getRoles());
+        saveOrUpdatepdateUserRoles(user, userDto.getRoles());
 
-        return userRepository.save(user);
+        User updatedUser = userRepository.save(user);
+        return new UserResponse(updatedUser);
     }
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserResponse> findAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(UserResponse::new).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<User> findById(Long idUser) {
-        return userRepository.findById(idUser);
+    public Optional<UserResponse> findById(Long idUser) {
+        Optional<User> user = userRepository.findById(idUser);
+        if (user.isPresent()){
+            return Optional.of(new UserResponse(user.get()));
+        }
+        return Optional.empty();
     }
 
     @Override
-    public List<User> search(String keyword, Pageable pageable) {
-        return userRepository.search(keyword);
+    public List<UserResponse> search(String keyword, Pageable pageable) {
+        List<User> users = userRepository.search(keyword);
+        return users.stream().map(UserResponse::new).collect(Collectors.toList());
     }
 }
