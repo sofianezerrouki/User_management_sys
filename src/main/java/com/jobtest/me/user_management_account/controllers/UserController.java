@@ -4,8 +4,12 @@ import com.jobtest.me.user_management_account.dto.UserDto;
 import com.jobtest.me.user_management_account.models.User;
 import com.jobtest.me.user_management_account.services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,12 +31,24 @@ public class UserController {
         return userService.updateUser(userDto);
     }
 
+    @GetMapping
+    public List<User> findAll(){
+        return userService.findAll();
+    }
     @GetMapping("{idUser}")
-    public Optional<User> findAll(@PathVariable Long idUser){
+    public Optional<User> findById(@PathVariable Long idUser){
         return userService.findById(idUser);
     }
+
+    @GetMapping("search")
+    public List<User> search(
+            @RequestParam(required = false) String usernameOrEmail,
+            @RequestParam(required = false,defaultValue = "0") Integer page,
+            @RequestParam(required = false,defaultValue = "10") Integer size){
+
+        return userService.search(usernameOrEmail, PageRequest.of(page,size));
+    }
+
 }
 
-//        SELECT * FROM AUTHORITY ;
-//        SELECT * FROM USER;
-//        SELECT * FROM USERS_ROLES ;
+

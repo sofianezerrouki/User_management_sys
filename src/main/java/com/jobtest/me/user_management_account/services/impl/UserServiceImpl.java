@@ -11,6 +11,7 @@ import com.jobtest.me.user_management_account.repo.RoleRepository;
 import com.jobtest.me.user_management_account.repo.UserRepository;
 import com.jobtest.me.user_management_account.services.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -75,5 +76,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(Long idUser) {
         return userRepository.findById(idUser);
+    }
+
+    @Override
+    public List<User> search(String keyword, Pageable pageable) {
+        return userRepository.search(keyword);
     }
 }
