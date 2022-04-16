@@ -16,12 +16,11 @@ public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Enumerated
-    private Role role;
+    private String role;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
-    public Authority(Role role) {
+    public Authority(String role) {
         this.role = role;
     }
 }

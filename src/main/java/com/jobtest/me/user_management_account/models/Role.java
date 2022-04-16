@@ -4,6 +4,7 @@ package com.jobtest.me.user_management_account.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+
 public enum Role {
 
     @JsonProperty(value = "ROLE_USER")
@@ -14,4 +15,5 @@ public enum Role {
     ROLE_ADMIN,
     @JsonProperty(value = "ROLE_NEW")
     ROLE_NEW;
+
 }
