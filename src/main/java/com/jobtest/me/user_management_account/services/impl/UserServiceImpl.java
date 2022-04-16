@@ -1,5 +1,6 @@
 package com.jobtest.me.user_management_account.services.impl;
 
+import com.jobtest.me.user_management_account.exceptions.EmailExistException;
 import com.jobtest.me.user_management_account.exceptions.UsernameExistException;
 import com.jobtest.me.user_management_account.models.Authority;
 import com.jobtest.me.user_management_account.models.Role;
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
         }
         //chek if email exist
         if (myUser!=null){
-            throw new UsernameExistException("Email already exist: "+ user.getEmail());
+            throw new EmailExistException("Email already exist: "+ user.getEmail());
         }
         //if Role exist we shouldn't resave again
         Authority myAuthority = roleRepository.findByRoleName(Role.ROLE_NEW.name());

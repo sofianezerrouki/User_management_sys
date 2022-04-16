@@ -1,11 +1,6 @@
 package com.jobtest.me.user_management_account.controllers;
 
-import com.jobtest.me.user_management_account.exceptions.UsernameExistException;
-import com.jobtest.me.user_management_account.models.Authority;
-import com.jobtest.me.user_management_account.models.Role;
 import com.jobtest.me.user_management_account.models.User;
-import com.jobtest.me.user_management_account.repo.RoleRepository;
-import com.jobtest.me.user_management_account.repo.UserRepository;
 import com.jobtest.me.user_management_account.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
