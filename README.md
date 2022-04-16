@@ -102,9 +102,15 @@ _Below you can instruct your audience on installing and setting up your app.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-#TODO add postman collection
+1- go to postman 
+2-import  JobTest.postman_collection.json to test all the API :) 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+## Problems
+=> don't forget to  add lombok to your IDE to avoid problems
+<br>
+<img src="images/lombok.jfif" alt="Logo" width="80" height="80">
 
 <!-- CONTRIBUTING -->
 ## Contributing
