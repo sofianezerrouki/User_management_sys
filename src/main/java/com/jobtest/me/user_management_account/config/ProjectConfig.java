@@ -10,8 +10,11 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/console/**").permitAll();
+                .headers().frameOptions().sameOrigin()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/console/**").permitAll();
+
         http.csrf().disable();
-        http.headers().frameOptions().disable();
     }
 }

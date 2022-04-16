@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.HashSet;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -24,9 +21,12 @@ public class Users {
     private String username;
     private String password;
     private String email;
-
     @ManyToMany
-    Set<Authorities> authorities = new HashSet<>();
-
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "username",referencedColumnName = "username"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id")
+    )
+    private Set<Authority> authorities;
 
 }
